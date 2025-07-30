@@ -1,0 +1,48 @@
+Prompt / Instructions to Fix Visual Editor Script Showing on Frontend in Replit
+Issue:
+You are seeing the Replit visual editor or "beacon" JavaScript code or overlays appearing on your frontend application in Replit. This is likely caused by a dev tool script enabled or injected by Replit’s environment or your project setup.
+
+Steps to fix:
+
+Disable Replit Visual Editor Mode if Enabled:
+
+Check if your Replit project or workspace has a "Visual Editor" or similar "Replit Beacon" feature enabled.
+
+If available, toggle it off in your project settings, environment options, or Replit sidebar tooling.
+
+Remove or Condition the Script That Loads the Visual Editor:
+
+Search your code for any explicit imports or <script> tags loading the beacon/cartographer scripts (keywords might include replit-beacon, cartographer, or visually referencing visual editor scripts).
+
+Remove or conditionally load these scripts only during development, not in production.
+
+Check for Debug or Development Injection:
+
+If you are using Replit’s in-browser editor tooling or plugins that inject editing/highlighting code, try disabling or opting out of those extensions or configurations.
+
+Build your frontend with a production mode configuration that excludes dev-only scripts.
+
+Disable Conflicting Browser Extensions (if applicable):
+
+Sometimes browser extensions (especially those related to Replit or web development) inject these scripts. Temporarily disable your browser extensions and reload your app to test.
+
+Check Your Build & Deployment Pipeline:
+
+If you use bundlers or build systems (e.g., Webpack, Vite), verify that dev-only tools like the visual editor scripts are excluded or gated on environment variables (NODE_ENV !== 'production').
+
+Add a Safe Guard in Your Code (Example):
+
+js
+if (process.env.NODE_ENV === 'development') {
+  // Load or enable the visual editor script only in dev environment
+  import('replit-beacon').then(module => {
+    // initialize visual editor
+  }).catch(console.error);
+}
+Consult Replit Documentation or Support:
+
+Replit may have specific docs or config flags for turning off the visual editor or related development tools if it’s injected automatically.
+
+Search or ask in Replit’s community for "disable visual editor on app frontend".
+
+If you follow these steps or use this prompt as a checklist, you should be able to prevent the visual editor/minified beacon script from cluttering your app’s frontend in Replit.
